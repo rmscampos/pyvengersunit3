@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Showganize</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
   <header class="navbar-fixed">
@@ -15,11 +18,11 @@
           <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Showganize</a></li>
         </ul>
         <ul class="right">
-          <li><a href="/about">About</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
           {% if user.is_authenticated %}
-            <li><a href=" temporary ">Log Out</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
           {% else %}
-            <li><a href=" temporary ">Log In</a></li>
+            <li><a href="{% url 'login' %}">Log In</a></li>
           {% endif %}
         </ul>
       </div>
