@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -11,6 +12,21 @@ def home(request):
 
 def about(request):
   return render(request, 'about.html')
+
+def concerts_index(request):
+  return render(request, 'concerts/index.html', { 'concerts' : concerts })
+
+# This is just a test. Delete after it shows that it printed.
+class Concert:
+  def __init__(self, name, location, description, year):
+    self.name = name
+    self.location = location
+    self.description = description
+    self.year = year
+
+concerts = [
+  Concert('Gambino', 'Austin, Texas', 'Rap Concert', 2020)
+]
 
 def signup(request):
   error_message = ''
