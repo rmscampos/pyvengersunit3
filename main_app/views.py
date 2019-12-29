@@ -1,11 +1,31 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin #this is a class and therefore using upper camel casing
 
-# Create your views here.
+import uuid
+import boto3
+from .models import Concert
+
+class ConcertCreate(LoginRequiredMixin, CreateView):
+  model = Concert
+  fields = ['artist', 'date', 'location']
+  def form_valid(self, form):
+    # Assign the logged in user (self.request.user)
+    form.instance.user = self.request.user #form.instance is the concert
+    # Let the CreateView do its job as usual
+    return super().form_valid(form)
+
+class ConcertUpdate(LoginRequiredMixin, UpdateView):
+  model = Concert
+  fields = ['artist', 'date', 'location']
+
+class ConcertDelete(LoginRequiredMixin, DeleteView):
+  model = Concert
+  success_url = '/concerts/'
 
 def home(request):
   return render(request, 'home.html')
@@ -13,20 +33,14 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
+@login_required
 def concerts_index(request):
+  concerts = Concert.objects.filter(user=request.user)
   return render(request, 'concerts/index.html', { 'concerts' : concerts })
 
-# This is just a test. Delete after it shows that it printed.
-class Concert:
-  def __init__(self, name, location, description, year):
-    self.name = name
-    self.location = location
-    self.description = description
-    self.year = year
-
-concerts = [
-  Concert('Gambino', 'Austin, Texas', 'Rap Concert', 2020)
-]
+@login_required
+def concerts_detail(request, concert_id):
+  concert = Concert.objects.get(id=concert_id)
 
 def signup(request):
   error_message = ''

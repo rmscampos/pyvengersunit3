@@ -12,8 +12,8 @@
         <p>Location: {{ concert.location }}</p> 
       </div>
       <div class="card-action">
-        <a href="{% url 'cats_update' cat.id %}">Edit</a>
-        <a href="{% url 'cats_delete' cat.id %}">Delete</a>
+        <a href="{% url 'concerts_update' concert.id %}">Edit</a>
+        <a href="{% url 'concerts_delete' concert.id %}">Delete</a>
       </div>
     </div>
   </div>
