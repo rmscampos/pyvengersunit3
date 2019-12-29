@@ -15,8 +15,12 @@
     <nav class="#90a4ae blue-grey lighten-2">
       <div class="nav-wrapper">
         <ul>
-          <li><a class="left brand-logo"><img src="https://i.imgur.com/XgaOfmY.png" width="80" height="65"></a></li>
+          {% if user.is_authenticated %}
+          <li><img src="https://i.imgur.com/r4f9hWp.png" width="110" height="80"></li>
           <li><a href="/" class="center brand-logo">&nbsp;&nbsp;Showganize</a></li>
+          {% else %}
+          <li><a href="/" class="center brand-logo"></a></li>
+          {% endif %}
         </ul>
         <ul class="right">
           <li><a href="{% url 'about' %}">About</a></li>
