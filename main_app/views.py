@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import ListView, DetailView
+# from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -8,24 +8,43 @@ from django.contrib.auth.mixins import LoginRequiredMixin #this is a class and t
 
 import uuid
 import boto3
-from .models import Concert
+# from .models import Concert
 
-class ConcertCreate(LoginRequiredMixin, CreateView):
-  model = Concert
-  fields = ['artist', 'date', 'location']
-  def form_valid(self, form):
-    # Assign the logged in user (self.request.user)
-    form.instance.user = self.request.user #form.instance is the concert
-    # Let the CreateView do its job as usual
-    return super().form_valid(form)
+class Concert: 
+  def __init__(self, artist, date, location):
+    self.artist = artist
+    self.date = date
+    self.location = location
 
-class ConcertUpdate(LoginRequiredMixin, UpdateView):
-  model = Concert
-  fields = ['artist', 'date', 'location']
+concerts = [
+  Concert('Childish Gambino', 'August 3, 2019', 'Austin'),
+  Concert('Garth Brooks', 'July 18, 2020', 'San Antonio'),
+  Concert('Taylor Swift', 'January 24, 2020', 'Portland'),
+]
 
-class ConcertDelete(LoginRequiredMixin, DeleteView):
-  model = Concert
-  success_url = '/concerts/'
+# class ConcertCreate(LoginRequiredMixin, CreateView):
+#   model = Concert
+#   fields = ['artist', 'date', 'location']
+#   def form_valid(self, form):
+#     # Assign the logged in user (self.request.user)
+#     form.instance.user = self.request.user #form.instance is the concert
+#     # Let the CreateView do its job as usual
+#     return super().form_valid(form)
+
+# class ConcertUpdate(LoginRequiredMixin, UpdateView):
+#   model = Concert
+#   fields = ['artist', 'date', 'location']
+
+# class ConcertDelete(LoginRequiredMixin, DeleteView):
+#   model = Concert
+#   success_url = '/concerts/'
+
+# class Concert:
+#   def __init__(self, artist, date, location):
+#     self.artist = artist
+#     self.date = date
+#     self.location = location
+    
 
 def home(request):
   return render(request, 'home.html')
@@ -33,14 +52,14 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
-@login_required
 def concerts_index(request):
-  concerts = Concert.objects.filter(user=request.user)
+  # concerts = Concert.objects.filter(user=request.user)
   return render(request, 'concerts/index.html', { 'concerts' : concerts })
 
-@login_required
-def concerts_detail(request, concert_id):
-  concert = Concert.objects.get(id=concert_id)
+# @login_required
+# def concerts_detail(request, concert_id):
+# #   concerts = Concert.objects.get(id=concert_id)
+#   return render(request, 'concerts/detail.html', { 'concert' : concert })
 
 def signup(request):
   error_message = ''
