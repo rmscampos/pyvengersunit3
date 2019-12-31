@@ -23,16 +23,10 @@ class ConcertUpdate(LoginRequiredMixin, UpdateView):
   model = Concert
   fields = ['artist', 'date', 'location']
 
-<<<<<<< HEAD
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'pyvengersunit3'
 
 # Create your views here.
-=======
-class ConcertDelete(LoginRequiredMixin, DeleteView):
-  model = Concert
-  success_url = '/concerts/'
->>>>>>> 2dcc43f4366576e7f9e7e0acb3d91f11cd7e27c6
 
 def home(request):
   return render(request, 'home.html')
@@ -45,13 +39,6 @@ def concerts_index(request):
   concerts = Concert.objects.filter(user=request.user)
   return render(request, 'concerts/index.html', { 'concerts' : concerts })
 
-<<<<<<< HEAD
-=======
-@login_required
-def concerts_detail(request, concert_id):
-  concert = Concert.objects.get(id=concert_id)
-
->>>>>>> 2dcc43f4366576e7f9e7e0acb3d91f11cd7e27c6
 def signup(request):
   error_message = ''
   if request.method == 'POST':
