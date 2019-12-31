@@ -2,14 +2,12 @@
 
 {% block content %}
 
-<h1>Your Concert Listings</h1>
+<h1>Concert Listings</h1>
 
 {% for concert in concerts %}
-    <a href="{% url 'detail' concert.id %}">
         <div class="card">
             <div class="card-content">
-                <span class="card-title">{{ concert.name }}</span>
-                <p>Artist: {{ concert.artist }}</p>
+                <span class="card-title">{{ concert.artist }}</span>
                 <p>Date: {{ concert.date }}</p>
                 <p>Location: {{ concert.location }}</p>
             </div>

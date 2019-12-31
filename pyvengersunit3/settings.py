@@ -120,7 +120,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/about/'
+LOGIN_REDIRECT_URL = '/concerts/'
 
 LOGOUT_REDIRECT_URL = '/'
 

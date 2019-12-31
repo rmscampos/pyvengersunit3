@@ -12,16 +12,16 @@ from .models import Concert, Photo
 
 class ConcertCreate(LoginRequiredMixin, CreateView):
   model = Concert
-  fields = ['artist', 'date', 'location']
+  fields = ['artist', 'location', 'date', 'time']
   def form_valid(self, form):
     # Assign the logged in user (self.request.user)
     form.instance.user = self.request.user #form.instance is the concert
     # Let the CreateView do its job as usual
     return super().form_valid(form)
 
-class ConcertUpdate(LoginRequiredMixin, UpdateView):
-  model = Concert
-  fields = ['artist', 'date', 'location']
+# class ConcertUpdate(LoginRequiredMixin, UpdateView):
+#   model = Concert
+#   fields = ['artist', 'date', 'location']
 
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'pyvengersunit3'
@@ -34,11 +34,18 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
-@login_required
 def concerts_index(request):
   concerts = Concert.objects.filter(user=request.user)
   return render(request, 'concerts/index.html', { 'concerts' : concerts })
 
+<<<<<<< HEAD
+=======
+# @login_required
+# def concerts_detail(request, concert_id):
+# #   concerts = Concert.objects.get(id=concert_id)
+#   return render(request, 'concerts/detail.html', { 'concert' : concert })
+
+>>>>>>> 6db73fb3defaa53e71b6adb46cc7b126663915ca
 def signup(request):
   error_message = ''
   if request.method == 'POST':
