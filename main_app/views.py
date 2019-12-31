@@ -33,11 +33,12 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
+@login_required
 def concerts_index(request):
   concerts = Concert.objects.filter(user=request.user)
   return render(request, 'concerts/index.html', { 'concerts' : concerts })
 
-
+@login_required
 def concerts_detail(request, concert_id):
   concert = Concert.objects.get(id=concert_id)
   return render(request, 'concerts/detail.html', { 'concert' : concert })
