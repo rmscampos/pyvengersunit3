@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.shortcuts import render, redirect
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -19,13 +19,13 @@ class ConcertCreate(LoginRequiredMixin, CreateView):
     # Let the CreateView do its job as usual
     return super().form_valid(form)
 
-# class ConcertUpdate(LoginRequiredMixin, UpdateView):
-#   model = Concert
-#   fields = ['artist', 'date', 'location']
+class ConcertUpdate(LoginRequiredMixin, UpdateView):
+  model = Concert
+  fields = ['artist', 'location', 'date', 'time']
 
-# class ConcertDelete(LoginRequiredMixin, DeleteView):
-#   model = Concert
-#   success_url = '/concerts/'
+class ConcertDelete(LoginRequiredMixin, DeleteView):
+  model = Concert
+  success_url = '/concerts/'
 
 def home(request):
   return render(request, 'home.html')
@@ -37,10 +37,10 @@ def concerts_index(request):
   concerts = Concert.objects.filter(user=request.user)
   return render(request, 'concerts/index.html', { 'concerts' : concerts })
 
-# @login_required
-# def concerts_detail(request, concert_id):
-# #   concerts = Concert.objects.get(id=concert_id)
-#   return render(request, 'concerts/detail.html', { 'concert' : concert })
+
+def concerts_detail(request, concert_id):
+  concert = Concert.objects.get(id=concert_id)
+  return render(request, 'concerts/detail.html', { 'concert' : concert })
 
 def signup(request):
   error_message = ''

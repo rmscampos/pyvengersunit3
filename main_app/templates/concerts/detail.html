@@ -11,6 +11,10 @@
     <p>Date: {{ concert.date }}</p>
     <p>Time: {{ concert.time }}</p>
   </div>
+  <div class="card-action">
+    <a href="{% url 'concerts_update' concert.id %}">Edit</a>
+    <a href="{% url 'concerts_delete' concert.id %}">Delete</a>
+  </div>
 </div>
 
 {% endblock %}
