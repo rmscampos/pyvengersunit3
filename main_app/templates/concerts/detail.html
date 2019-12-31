@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Concert Details</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ concert.name }}</span>
+    <p>Artist: {{ concert.artist }}</p>
+    <p>Location: {{ concert.location }}</p>
+    <p>Date: {{ concert.date }}</p>
+    <p>Time: {{ concert.time }}</p>
+  </div>
+</div>
+
+{% endblock %}
