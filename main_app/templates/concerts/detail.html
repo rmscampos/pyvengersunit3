@@ -3,7 +3,6 @@
 
 <h1>Concert Details</h1>
 
-<<<<<<< HEAD
 <div class="row">
   <div class="col s6">
     <div class="card">
@@ -39,31 +38,3 @@
 
 
 {% endblock %}
-=======
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">{{ concert.name }}</span>
-    <p>Artist: {{ concert.artist }}</p>
-    <p>Location: {{ concert.location }}</p>
-    <p>Date: {{ concert.date }}</p>
-    <p>Time: {{ concert.time }}</p>
-  </div>
-  <div class="card-action">
-    <a href="{% url 'concerts_update' concert.id %}">Edit</a>
-    <a href="{% url 'concerts_delete' concert.id %}">Delete</a>
-  </div>
-</div>
-
-<script>
-    // create a date picker
-    var dateEl = document.getElementById('id_date');
-    M.Datepicker.init(dateEl, {
-      format: 'yyyy-mm-dd',
-      defaultDate: new Date(),
-      setDefaultDate: true,
-      autoClose: true
-    });
-</script>
-
-{% endblock %}
->>>>>>> 7ca05a3393c48be4b7bb73b012f5a3c1cbc27b43
