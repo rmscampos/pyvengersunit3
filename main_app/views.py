@@ -38,14 +38,6 @@ def concerts_index(request):
   concerts = Concert.objects.filter(user=request.user)
   return render(request, 'concerts/index.html', { 'concerts' : concerts })
 
-<<<<<<< HEAD
-=======
-# @login_required
-# def concerts_detail(request, concert_id):
-# #   concerts = Concert.objects.get(id=concert_id)
-#   return render(request, 'concerts/detail.html', { 'concert' : concert })
-
->>>>>>> 6db73fb3defaa53e71b6adb46cc7b126663915ca
 def signup(request):
   error_message = ''
   if request.method == 'POST':
