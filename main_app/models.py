@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 RATINGS = (
   ('1', 'Do Not Watch Again'),
   ('2', 'Did Not Like It'),
-  ('3', 'It Was Kinda Good'),
+  ('3', 'It Was Ok'),
   ('4', 'I Liked It'),
   ('5', 'I Loved This Concert')
 )
