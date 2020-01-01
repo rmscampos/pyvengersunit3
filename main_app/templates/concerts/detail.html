@@ -3,25 +3,76 @@
 
 <h1>Concert Details</h1>
 
-<div class="row">
-  <div class="col s6">
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">{{ concert.artist }}</span>
-        <p>Date: {{ concert.date }}</p>
-        <p>Location: {{ concert.location }}</p> 
-      </div>
-      <div class="card-action">
-        <a href="{% url 'concerts_update' concert.id %}">Edit</a>
-        <a href="{% url 'concerts_delete' concert.id %}">Delete</a>
-      </div>
-    </div>
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ concert.name }}</span>
+    <p>Artist: {{ concert.artist }}</p>
+    <p>Location: {{ concert.location }}</p>
+    <p>Date: {{ concert.date }}</p>
+    <p>Time: {{ concert.time }}</p>
+  </div>
+  <div class="card-action">
+    <a href="{% url 'concerts_update' concert.id %}">Edit</a>
+    <a href="{% url 'concerts_delete' concert.id %}">Delete</a>
   </div>
 </div>
 
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ concert.name }}'s Reviews</h3>
+    {% if concert.reviews.count %}
+      {% for review in concert.reviews.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'unassoc_review' concert.id review.id %}" method="post">
+                {% csrf_token %}
+              <button type="submit" class="btn">Remove</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>No Reviews :(</h5>
+    {% endif %}
+  </div>
+  <!-- Available toys will come after this line -->
+  <div class="col s6">
+    <h3>Available Reviews</h3>
+    {% if reviews.count %}
+      {% for review in reviews.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_review' concert.id review.id %}" method="post">
+                {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{concert.name}} Already Has All Reviews</h5>
+    {% endif %}
+  </div>
+</div>
 
-<!-- Insert review markup below -->
-
-<!-- Insert photos markup below -->
+<script>
+    // create a date picker
+    var dateEl = document.getElementById('id_date');
+    M.Datepicker.init(dateEl, {
+      format: 'yyyy-mm-dd',
+      defaultDate: new Date(),
+      setDefaultDate: true,
+      autoClose: true
+    });
+</script>
 
 {% endblock %}

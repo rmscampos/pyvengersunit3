@@ -5,14 +5,14 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin #this is a class and therefore using upper camel casing
-
+# from .forms import ReviewForm
 import uuid
 import boto3
-from .models import Concert
+from .models import Concert, Review
 
 class ConcertCreate(LoginRequiredMixin, CreateView):
   model = Concert
-  fields = ['artist', 'date', 'location']
+  fields = ['artist', 'location', 'date', 'time']
   def form_valid(self, form):
     # Assign the logged in user (self.request.user)
     form.instance.user = self.request.user #form.instance is the concert
@@ -21,7 +21,7 @@ class ConcertCreate(LoginRequiredMixin, CreateView):
 
 class ConcertUpdate(LoginRequiredMixin, UpdateView):
   model = Concert
-  fields = ['artist', 'date', 'location']
+  fields = ['artist', 'location', 'date', 'time']
 
 class ConcertDelete(LoginRequiredMixin, DeleteView):
   model = Concert
@@ -41,6 +41,39 @@ def concerts_index(request):
 @login_required
 def concerts_detail(request, concert_id):
   concert = Concert.objects.get(id=concert_id)
+  reviews_form = ReviewForm()
+  return render(request, 'concerts/detail.html', { 
+    'concert' : concert,
+    'reviews_form': reviews_form
+    
+    })
+
+def add_review(request, concert_id):
+  form = ReviewForm(request.POST)
+  if form.is_valid():
+    new_review = form.save(commit=False)
+    new_review.movie_id = concert_id
+    new_review.save()
+  return redirect('detail', movie_id=concert_id)
+
+class ReviewList(LoginRequiredMixin, ListView):
+  model = Review
+
+class ReviewDetail(LoginRequiredMixin, DetailView):
+  model = Review
+
+class ReviewCreate(LoginRequiredMixin, CreateView):
+  model = Review
+  fields = '__all__'
+
+class ReviewUpdate(LoginRequiredMixin, UpdateView):
+  model = Review
+  fields = '__all__'
+
+class ReviewDelete(LoginRequiredMixin, DeleteView):
+  model = Review
+  success_url = '/reviews/'
+
 
 def signup(request):
   error_message = ''
