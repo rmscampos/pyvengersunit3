@@ -109,4 +109,4 @@ def add_photo(request, review_id):
             photo.save()
         except:
             print('An error occurred uploading file to S3')
-    return redirect('reviews_detail', review_id=review_id)
+    return redirect('reviews_detail', pk=review_id)
