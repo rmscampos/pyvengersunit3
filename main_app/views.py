@@ -1,15 +1,14 @@
 from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin #this is a class and therefore using upper camel casing
 
 import uuid
 import boto3
-from .models import Concert, Photo
+from .models import Concert
 
 class ConcertCreate(LoginRequiredMixin, CreateView):
   model = Concert
@@ -24,10 +23,9 @@ class ConcertUpdate(LoginRequiredMixin, UpdateView):
   model = Concert
   fields = ['artist', 'location', 'date', 'time']
 
-S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
-BUCKET = 'pyvengersunit3'
-
-# Create your views here.
+class ConcertDelete(LoginRequiredMixin, DeleteView):
+  model = Concert
+  success_url = '/concerts/'
 
 def home(request):
   return render(request, 'home.html')
@@ -40,30 +38,26 @@ def concerts_index(request):
   concerts = Concert.objects.filter(user=request.user)
   return render(request, 'concerts/index.html', { 'concerts' : concerts })
 
+@login_required
+def concerts_detail(request, concert_id):
+  concert = Concert.objects.get(id=concert_id)
+  return render(request, 'concerts/detail.html', { 'concert' : concert })
+
 def signup(request):
   error_message = ''
   if request.method == 'POST':
+    # This is how to create a 'user' form object
+    # that includes the data from the browser
     form = UserCreationForm(request.POST)
     if form.is_valid():
+      # This will add the user to the database
       user = form.save()
+      # This is how we log a user in via code
       login(request, user)
       return redirect('home')
     else:
       error_message = 'Invalid sign up - try again'
+  # A bad POST or a GET request, so render signup.html with an empty form
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
-
-def add_photo(request, cat_id):
-    photo_file = request.FILES.get('photo-file', None)
-    if photo_file:
-        s3 = boto3.client('s3')
-        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-        try:
-            s3.upload_fileobj(photo_file, BUCKET, key)
-            url = f"{S3_BASE_URL}{BUCKET}/{key}"
-            photo = Photo(url=url, concerts_index=concerts_index)
-            photo.save()
-        except:
-            print('An error occurred uploading file to S3')
-    return redirect('detail', concerts_index=concerts_index)

@@ -3,38 +3,29 @@
 
 <h1>Concert Details</h1>
 
-<div class="row">
-  <div class="col s6">
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">{{ concert.artist }}</span>
-        <p>Date: {{ concert.date }}</p>
-        <p>Location: {{ concert.location }}</p> 
-      </div>
-      <div class="card-action">
-        <a href="{% url 'concerts_update' concert.id %}">Edit</a>
-        <a href="{% url 'concerts_delete' concert.id %}">Delete</a>
-      </div>
-    </div>
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ concert.name }}</span>
+    <p>Artist: {{ concert.artist }}</p>
+    <p>Location: {{ concert.location }}</p>
+    <p>Date: {{ concert.date }}</p>
+    <p>Time: {{ concert.time }}</p>
+  </div>
+  <div class="card-action">
+    <a href="{% url 'concerts_update' concert.id %}">Edit</a>
+    <a href="{% url 'concerts_delete' concert.id %}">Delete</a>
   </div>
 </div>
 
-
-<!-- Insert review markup below -->
-
-<!-- Insert photos markup below -->
-{% for photo in concert.photo_set.all %}
-  <img class="responsive-img card-panel" src="{{photo.url}}">
-{% empty %}
-  <div class="card-panel teal-text center-align">No Photos Uploaded</div>
-{% endfor %}
-
-<form action="{% url 'add_photo' cat.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-  {% csrf_token %}
-  <input type="file" name="photo-file">
-  <br><br>
-  <input type="submit" class="btn" value="Upload Photo">
-</form>
-
+<script>
+    // create a date picker
+    var dateEl = document.getElementById('id_date');
+    M.Datepicker.init(dateEl, {
+      format: 'yyyy-mm-dd',
+      defaultDate: new Date(),
+      setDefaultDate: true,
+      autoClose: true
+    });
+</script>
 
 {% endblock %}
