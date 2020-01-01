@@ -1,6 +1,6 @@
 from django.contrib import admin
+from .models import Concert, Review
 
 # Register your models here.
-from .models import Concert
-
 admin.site.register(Concert)
+admin.site.register(Review)

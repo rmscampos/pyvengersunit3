@@ -17,6 +17,53 @@
   </div>
 </div>
 
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ concert.name }}'s Reviews</h3>
+    {% if concert.reviews.count %}
+      {% for review in concert.reviews.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'unassoc_review' concert.id review.id %}" method="post">
+                {% csrf_token %}
+              <button type="submit" class="btn">Remove</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>No Reviews :(</h5>
+    {% endif %}
+  </div>
+  <!-- Available toys will come after this line -->
+  <div class="col s6">
+    <h3>Available Reviews</h3>
+    {% if reviews.count %}
+      {% for review in reviews.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_review' concert.id review.id %}" method="post">
+                {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{concert.name}} Already Has All Reviews</h5>
+    {% endif %}
+  </div>
+</div>
+
 <script>
     // create a date picker
     var dateEl = document.getElementById('id_date');
