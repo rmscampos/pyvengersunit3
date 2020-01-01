@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Photo
 
 # Register your models here.
-admin.site.register(Photo)
+from .models import Concert
+
+admin.site.register(Concert)
