@@ -5,10 +5,11 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin #this is a class and therefore using upper camel casing
-# from .forms import ReviewForm
+# from .form import ReviewForm
+
 import uuid
 import boto3
-from .models import Concert, Review
+from .models import Concert, Review, Photo
 
 class ConcertCreate(LoginRequiredMixin, CreateView):
   model = Concert
@@ -54,7 +55,7 @@ def add_review(request, concert_id):
     new_review = form.save(commit=False)
     new_review.movie_id = concert_id
     new_review.save()
-  return redirect('detail', movie_id=concert_id)
+  return redirect('detail', concert_id=concert_id)
 
 class ReviewList(LoginRequiredMixin, ListView):
   model = Review
@@ -93,3 +94,19 @@ def signup(request):
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
+
+def add_photo(request, review_id):
+    S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
+    BUCKET = 'pyvengersunit3'
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            photo = Photo(url=url, review_id=review_id)
+            photo.save()
+        except:
+            print('An error occurred uploading file to S3')
+    return redirect('reviews_detail', review_id=review_id)

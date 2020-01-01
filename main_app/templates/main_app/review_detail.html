@@ -7,12 +7,20 @@
   <div class="col s6 col-offset-3">
     <div class="card">
       <div class="card-content">
-        <span class="card-title">{{ review.name }}</span>
+        <span class="card-title">{{ review.title }}
+            <p>{{ review.description }}</p>
+            <p>{{ review.rating }} / 5</p>
+        </span>
       </div>
       <div class="card-action">
         <a href="{% url 'reviews_update' review.id %}">Edit</a>
         <a href="{% url 'reviews_delete' review.id %}">Delete</a>
       </div>
+        {% for photo in photo.photo_set.all %}
+          <img class="responsive-img card-panel" src="{{ photo.url }}">
+        {% empty %}
+          <div class="card-panel teal-text center-align">No Photos Uploaded!</div>
+        {% endfor %}
     </div>
   </div>
 </div>
