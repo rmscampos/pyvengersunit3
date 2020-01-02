@@ -26,3 +26,8 @@ footer.page-footer {
     margin-right: auto;
     width: 80%;
 }
+.space {
+    list-style-type: none;
+    text-indent: 20px;
+
+}
