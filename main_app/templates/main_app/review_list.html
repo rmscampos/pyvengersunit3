@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Review List</h1>
+<h1>All Reviews</h1>
 
 {% for review in review_list %}
   <a href="{% url 'reviews_detail' review.id %}">
