@@ -21,6 +21,11 @@
 1. Python.
 2. Django
 3. Trello Board
+4. Heroku
+5. Html5 and CSS
+6. Materialize
+7. PostgreSQL
+8. Github
 
 
 ### wireframes ![alt text](https://trello-attachments.s3.amazonaws.com/5df7ccb6c77f183ed9af2f67/5dfbd0c21e11e41e8ae02b8b/ca6cb6857c763bc58c4d4c2b99758fd0/Blank_Diagram.png)
