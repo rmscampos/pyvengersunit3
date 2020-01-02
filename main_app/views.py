@@ -47,8 +47,6 @@ def concerts_detail(request, concert_id):
     'concert' : concert,
     'reviews_form': reviews_form,
     'reviews': reviews_concert_doesnt_have
-
-    
     })
 
 @login_required

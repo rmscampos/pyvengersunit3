@@ -17,13 +17,4 @@
     <input type="submit" value="Submit!" class="btn">
   </form>
 
-  <!-- Form for Uploading Photos :) -->
-  <!-- This form is not UI friendly. Need to find a better solution??? -->
-  <form action="" enctype="multipart/form-data" method="POST" class="card-panel">
-    {% csrf_token %}
-    <input type="file" name="photo-file">
-    <br><br>
-    <input type="submit" class="btn" value="Upload Photo">
-  </form>
-
 {% endblock %}
