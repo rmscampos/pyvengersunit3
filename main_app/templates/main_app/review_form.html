@@ -18,7 +18,8 @@
   </form>
 
   <!-- Form for Uploading Photos :) -->
-  <form action="{% url 'add_photo' review.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+  <!-- This form is not UI friendly. Need to find a better solution??? -->
+  <form action="" enctype="multipart/form-data" method="POST" class="card-panel">
     {% csrf_token %}
     <input type="file" name="photo-file">
     <br><br>
