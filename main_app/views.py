@@ -5,11 +5,10 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin #this is a class and therefore using upper camel casing
-# from .form import ReviewForm
-
 import uuid
 import boto3
 from .models import Concert, Review, Photo
+from .forms import ReviewForm
 
 class ConcertCreate(LoginRequiredMixin, CreateView):
   model = Concert
@@ -42,10 +41,13 @@ def concerts_index(request):
 @login_required
 def concerts_detail(request, concert_id):
   concert = Concert.objects.get(id=concert_id)
+  reviews_concert_doesnt_have = Review.objects.exclude(id__in = concert.reviews.all().values_list('id'))
   reviews_form = ReviewForm()
   return render(request, 'concerts/detail.html', { 
     'concert' : concert,
-    'reviews_form': reviews_form
+    'reviews_form': reviews_form,
+    'reviews': reviews_concert_doesnt_have
+
     
     })
 
@@ -57,6 +59,12 @@ def add_review(request, concert_id):
     new_review.movie_id = concert_id
     new_review.save()
   return redirect('detail', concert_id=concert_id)
+
+@login_required
+def assoc_review(request, concert_id, review_id):
+  Concert.objects.get(id=concert_id).reviews.add(review_id)
+  return redirect('detail', concert_id=concert_id)
+
 
 class ReviewList(LoginRequiredMixin, ListView):
   model = Review
