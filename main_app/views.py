@@ -49,6 +49,7 @@ def concerts_detail(request, concert_id):
     
     })
 
+@login_required
 def add_review(request, concert_id):
   form = ReviewForm(request.POST)
   if form.is_valid():
@@ -95,6 +96,7 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
+@login_required
 def add_photo(request, review_id):
     S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
     BUCKET = 'pyvengersunit3'
