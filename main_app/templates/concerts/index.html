@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Concert Listings</h1>
+<h1 class="color">Concert Listings</h1>
 
 {% for concert in concerts %}
     <a href="{% url 'detail' concert.id %}">

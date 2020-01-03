@@ -31,3 +31,16 @@ footer.page-footer {
     text-indent: 20px;
 
 }
+.style {
+  font-style: italic;
+  font-weight: bold;
+  font-size: medium;
+}
+.color {
+  color: rgb(29, 82, 75);
+  font-style: italic;
+}
+.seprate {
+  font-style: italic;
+
+}

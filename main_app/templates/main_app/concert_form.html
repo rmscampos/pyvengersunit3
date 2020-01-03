@@ -2,9 +2,9 @@
 
 {% block content %}
   {% if object %}
-    <h1>Edit <span class="teal-text">{{object.artist}}</span></h1>
+    <h1 class="color">Edit <span class="teal-text">{{object.artist}}</span></h1>
   {% else %}
-    <h1>Add Concert</h1>
+    <h1 class="color">Add Concert</h1>
   {% endif %}
   <form action="" method="post">
     {% csrf_token %}
