@@ -25,7 +25,6 @@
         <ul class="right">
           <li><a href="{% url 'about' %}">About</a></li>
           {% if user.is_authenticated %}
-            <li><a href="{% url 'reviews_create' %}">Add a Review</a></li>
             <li><a href="{% url 'reviews_index' %}">View All Reviews</a></li>
             <li><a href="{% url 'concerts_create' %}">Add a Concert</a></li>
             <li><a href="{% url 'index' %}">View my Concerts</a></li>
