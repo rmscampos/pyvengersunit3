@@ -5,7 +5,7 @@
 
 <div class="card">
   <div class="card-content">
-    <span class="card-title">{{ concert.name }}</span>
+    <span class="card-title"></span>
     <p>Artist: {{ concert.artist }}</p>
     <p>Location: {{ concert.location }}</p>
     <p>Date: {{ concert.date }}</p>
@@ -34,7 +34,7 @@
 <hr>
 <div class="row">
   <div class="col s6">
-    <h3>{{ concert.name }} Reviews</h3>
+    <h3>{{ concert.artist }} Reviews</h3>
     {% if concert.reviews.count %}
       {% for review in concert.reviews.all %}
         <div class="card">
@@ -54,6 +54,11 @@
       <h5>No Reviews :(</h5>
     {% endif %}
   </div>
+  
+
+<div class="col s6">  
+<h3><a href="{% url 'reviews_create' %}">Add Review</a></h3>
+</div>
   
 
 <script>
