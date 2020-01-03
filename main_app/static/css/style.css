@@ -31,3 +31,47 @@ footer.page-footer {
     text-indent: 20px;
 
 }
+.style {
+  font-style: italic;
+  font-weight: bold;
+  font-size: medium;
+}
+.color {
+  color: rgb(29, 82, 75);
+  font-style: italic;
+}
+.seprate {
+  font-style: italic;
+
+}
+.different {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 21px;
+  color: rgb(26, 74, 87);
+}
+
+#spinner {
+  text-align: center;
+  animation-name: spin, depth;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-duration: 3s;
+  color: rgb(14, 86, 95);
+}
+@keyframes spin {
+  from { transform: rotateY(90deg); }
+  to { transform: rotateY(0deg); }
+}
+@keyframes depth {
+  0% { text-shadow: 0 0 black; }
+  25% { text-shadow: 1px 0 black, 2px 0 black, 3px 0 black, 4px 0 black, 5px 0 black; }
+  50% { text-shadow: 0 0 black; }
+  75% { text-shadow: -1px 0 black, -2px 0 black, -3px 0 black, -4px 0 black, -5px 0 black; }
+  100% { text-shadow: 0 0 black; }
+}
+
+#spinner:hover {
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
