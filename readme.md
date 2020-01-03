@@ -40,5 +40,6 @@
 ### All Concert ![alt text](https://i.imgur.com/YUQFEGo.png)
 ### Concert Details ![alt text](https://i.imgur.com/Wjco17r.png)
 
+[Heroku](https://pyvengers.herokuapp.com/)
 
-
+[Pitch Deck](https://docs.google.com/presentation/d/1FmllAocXfcBnP0ff79z0ItwDvyydZBks0SoZTDv4QA4/edit#slide=id.g55d16254f0_1_21)
