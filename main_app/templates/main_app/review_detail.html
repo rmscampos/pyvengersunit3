@@ -16,12 +16,12 @@
         <a href="{% url 'reviews_update' review.id %}">Edit</a>
         <a href="{% url 'reviews_delete' review.id %}">Delete</a>
       </div>
-        {% for photo in review.photo_set.all %} <!-- Need to render this properly -->
-          <img class="responsive-img card-panel" src="{{ photo.url }}">
-        {% empty %}
-          <div class="card-panel teal-text center-align">No Photos Uploaded!</div>
-        {% endfor %}
     </div>
+    {% for photo in review.photo_set.all %} <!-- Need to render this properly -->
+      <img class="responsive-img card-panel" src="{{ photo.url }}">
+    {% empty %}
+      <div class="card-panel teal-text center-align">No Photos Uploaded!</div>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}
