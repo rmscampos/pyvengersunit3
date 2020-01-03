@@ -43,7 +43,7 @@ class Concert(models.Model):
 
 class Photo(models.Model):
     url = models.CharField(max_length=200)
-    concert = models.ForeignKey(Review, on_delete=models.CASCADE)
+    concert = models.ForeignKey(Concert, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Photo for concert_id: {self.concert_id} @{self.url}"
