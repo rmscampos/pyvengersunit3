@@ -103,7 +103,7 @@ def signup(request):
   return render(request, 'registration/signup.html', context)
 
 @login_required
-def add_photo(request, review_id):
+def add_photo(request, concert_id):
     S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
     BUCKET = 'pyvengersunit3'
     photo_file = request.FILES.get('photo-file', None)
@@ -113,8 +113,8 @@ def add_photo(request, review_id):
         try:
             s3.upload_fileobj(photo_file, BUCKET, key)
             url = f"{S3_BASE_URL}{BUCKET}/{key}"
-            photo = Photo(url=url, review_id=review_id)
+            photo = Photo(url=url, concert_id=concert_id)
             photo.save()
         except:
             print('An error occurred uploading file to S3')
-    return redirect('reviews_detail', review_id=review_id)
+    return redirect('detail', pk=concert_id)

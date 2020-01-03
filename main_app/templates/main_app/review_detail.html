@@ -16,28 +16,4 @@
         <a href="{% url 'reviews_update' review.id %}">Edit</a>
         <a href="{% url 'reviews_delete' review.id %}">Delete</a>
       </div>
-<<<<<<< HEAD
-=======
-        {% for photo in review.photo_set.all %} <!-- Need to render this properly -->
-          <img class="responsive-img card-panel" src="{{ photo.url }}">
-        {% empty %}
-          <div class="card-panel teal-text center-align">No Photos Uploaded!</div>
-        {% endfor %}
-        <!-- Form for Uploading Photos :) -->
-        <!-- This form is not UI friendly. Need to find a better solution??? -->
-          <form action="" enctype="multipart/form-data" method="POST" class="card-panel">
-            {% csrf_token %}
-          <input type="file" name="photo-file">
-          <br><br>
-          <input type="submit" class="btn" value="Upload Photo">
-      </form>
->>>>>>> fe3339e654dc173f72296e4874d079d04b323278
-    </div>
-    {% for photo in review.photo_set.all %} <!-- Need to render this properly -->
-      <img class="responsive-img card-panel" src="{{ photo.url }}">
-    {% empty %}
-      <div class="card-panel teal-text center-align">No Photos Uploaded!</div>
-    {% endfor %}
-  </div>
-</div>
 {% endblock %}
