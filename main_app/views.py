@@ -117,4 +117,4 @@ def add_photo(request, concert_id):
             photo.save()
         except:
             print('An error occurred uploading file to S3')
-    return redirect('detail', pk=concert_id)
+    return redirect('detail', concert_id=concert_id)
